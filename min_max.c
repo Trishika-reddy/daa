@@ -1,58 +1,55 @@
-#include <stdio.h>
-void MinMax(int a[],int i,int j,int *min,int *max)
+#include<stdio.h>
+#include<stdlib.h>
+int max, min;
+int a[100];
+void maxmin(int i, int j)
 {
-    int n;
-    int min1=0;
-    int max1=0;
-    if(i==j)
-    {
-        *max=*min=a[i];
-    }
-    else if(i==j-1)
-    {
-        if(a[i]<a[j])
-        {
-            *min=a[i];
-            *max=a[j];
-        }
-        else
-        {
-            *min=a[j];
-            *max=a[i];
-        }
-    }
-    else
-    {
-        int mid;
-        mid=(i+j)/2;
-        MinMax(a,i,mid,min,max);
-        MinMax(a,mid+1,j,&min1,&max1);
-        if(*max<max1)
-        {
-            *max=max1;
-        }
-        if(*min>min1)
-        {
-            *min=min1;
-        }
-    }
-}
-int main()
+int max1, min1, mid;
+if(i==j)
 {
-    int n;
-    int a[50];
-    int min=0;
-    int max=0;
-    printf("Enter the no.of elements:");
-    scanf("%d",&n);
-    int i;
-    printf("Enter the elements:");
-    for(i=0;i<n;i++)
-    {
-    	printf("Enter Element a[%d]:",i);
-        scanf("%d",&a[i]);
-    }
-    MinMax(a,0,n-1,&min,&max);
-    printf("Minimum number:%d\nMaximum Number:%d",min,max);
+ max = min = a[i];
 }
-
+else
+{
+ if(i == j-1)
+ {
+  if(a[i] <a[j])
+  {
+   max = a[j];
+   min = a[i];
+  }
+  else
+  {
+   max = a[i];
+   min = a[j];
+  }
+ }
+ else
+ {
+  mid = (i+j)/2;
+  maxmin(i, mid);
+  max1 = max; min1 = min;
+  maxmin(mid+1, j);
+  if(max <max1)
+   max = max1;
+  if(min > min1)
+   min = min1;
+ }
+}
+}
+int main ()
+{
+int i, num;
+printf ("\nEnter the total number of numbers : ");
+scanf ("%d",&num);
+printf ("Enter the numbers : \n");
+for (i=1;i<=num;i++)
+ scanf ("%d",&a[i]);
+ 
+max = a[0];
+min = a[0];
+maxmin(1, num);
+printf ("Minimum element in an array : %d\n", min);
+printf ("Maximum element in an array : %d\n", max);
+return 0;
+}
